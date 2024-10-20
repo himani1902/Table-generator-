@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <button id="generateBtn">Generate Table</button>
+    
+    <table id="inputTable"></table>
+
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            
+            const inputTable = document.getElementById('inputTable');
+            inputTable.innerHTML = "";
+            const numRows = parseInt(prompt("Enter the number of rows:"));
+            const numCols = parseInt(prompt("Enter the number of columns:"));
+
+            if (isNaN(numRows) || isNaN(numCols)) {
+                alert("Please enter valid numbers for rows and columns.");
+                return;
+            }
+            const headerRow = document.createElement('tr');
+            for (let i = 0; i < numCols; i++) {
+                const headerCell = document.createElement('th');
+                headerCell.textContent = `Column ${i + 1}`;
+                headerRow.appendChild(headerCell);
+            }
+            inputTable.appendChild(headerRow);
+
+            for (let row = 0; row < numRows; row++) {
+                const newRow = document.createElement('tr');
+
+                for (let col = 0; col < numCols; col++) {
+                    const newCell = document.createElement('td');
+                    const cellData = prompt(`Enter data for row ${row + 1}, column ${col + 1}:`);
+                    const newInput = document.createElement('input');
+                    newInput.type = 'text';
+                    newInput.value = cellData;
+
+                    newCell.appendChild(newInput);
+                    newRow.appendChild(newCell);
+                }
+
+                inputTable.appendChild(newRow);
+            }
+        });
+    </script>
+</body>
+</html>
